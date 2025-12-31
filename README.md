@@ -1,30 +1,32 @@
-# Shopee Sales Analytics Project
+# Shopee Sales Data Analytics Project
 
-This repository contains a SQL-based data analytics project built from raw transaction data exported from Shopee Seller Centre.  
-The project focuses on transforming raw sales data into a structured, analysis-ready database and generating meaningful business insights using SQL.
+This repository contains a SQL-based data analytics project built using transactional data exported from Shopee Seller Centre.
 
----
-
-## Project Overview
-
-The purpose of this project is to demonstrate core data analytics skills, including:
-
-- relational data modeling  
-- staging-based data processing  
-- data validation  
-- transformation into final analytical tables  
-- business-oriented SQL analysis  
-
-The dataset represents approximately one week of transaction data and is intentionally scoped to focus on sales analysis rather than inventory or automation pipelines.
+The project demonstrates how raw sales data can be transformed into a structured, analysis-ready database using a simple but realistic data pipeline approach.
 
 ---
 
-## Scope and Assumptions
+## Project Objective
 
-- The project focuses exclusively on **sales transactions**
-- Inventory movement and stock reconciliation are intentionally excluded
-- Data is processed in batch mode using CSV files
-- All data has been anonymized and modified for portfolio purposes
+The goal of this project is to:
+
+- Design a clean relational schema for sales data
+- Load and validate raw transactional data
+- Transform data into analytical tables
+- Perform basic business analysis using SQL
+- Demonstrate practical data analyst workflow and structure
+
+This project focuses on **sales analytics only** and intentionally excludes inventory automation or real-time pipelines.
+
+---
+
+## Scope & Assumptions
+
+- Data covers a limited time range (sample period)
+- Data is imported manually from CSV exports
+- Processing is done using SQL only
+- Pipeline is executed manually (no scheduler)
+- Focus is on clarity, structure, and correctness
 
 ---
 
@@ -32,64 +34,36 @@ The dataset represents approximately one week of transaction data and is intenti
 
 ### Core Tables
 
-- `sales_header` — order-level transaction records  
-- `sales_detail` — item-level transaction records  
-- `master_product` — product master and pricing reference  
+- `sales_header`  
+  Stores order-level transaction information such as order date, platform, and total transaction value.
+
+- `sales_detail`  
+  Stores item-level transaction data including product, quantity, and pricing.
+
+- `master_product`  
+  Contains product reference data used for normalization and joins.
+
+---
 
 ### Staging Tables
 
-Used as an intermediate layer before loading clean data into final tables.
+Staging tables are used as temporary storage for raw data before validation and transformation.
 
-- `staging_sales_header` — temporary storage for raw order-level data  
-- `staging_sales_detail` — temporary storage for raw item-level data  
-
-### Supporting Tables
-
-- `import_log` — stores metadata related to data import execution and processing status  
+- `staging_sales_header`
+- `staging_sales_detail`
 
 ---
 
-## Data Pipeline Workflow
+## Data Pipeline Overview
 
-1. Export raw transaction data from Shopee Seller Centre  
-2. Clean and standardize raw data using spreadsheet tools  
-3. Import CSV files into staging tables  
-4. Perform data validation checks  
-5. Insert validated records into final tables  
-6. Execute analytical queries on curated datasets  
+The project follows a simple and clear pipeline:
 
----
-
-## Data Validation
-
-Before inserting data into final tables, several validation rules are applied to ensure data quality:
-
-- Detection of missing or unmapped product identifiers  
-- Identification of duplicate order records  
-- Validation of numeric fields such as quantity and price  
-- Referential integrity checks between `sales_header` and `sales_detail`  
-
-Validation logic is separated from transformation logic to maintain clarity and auditability.
+1. Create schema and staging tables  
+2. Load raw CSV data into staging tables  
+3. Run validation checks to identify data issues  
+4. Insert clean data into final tables  
+5. Run analytical queries for insights  
 
 ---
 
-## Analytical Queries
-
-This project includes several commonly used analytical queries for sales analysis:
-
-### Daily Sales Performance
-Analyzes daily order volume and total revenue.
-
-### Top Products by Revenue
-Identifies the highest-performing products based on total sales value.
-
-### Average Order Value (AOV)
-Calculates the average revenue generated per order.
-
-### Order Size Distribution
-Analyzes the distribution of item quantities per order.
-
----
-
-## Repository Structure
 
