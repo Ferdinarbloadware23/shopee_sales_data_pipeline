@@ -65,5 +65,30 @@ The project follows a simple and clear pipeline:
 5. Run analytical queries for insights  
 
 ---
+## Validation Logic
 
+Validation queries are used to ensure data quality before inserting into final tables:
+
+- Detect missing or unmapped products  
+- Detect duplicate order IDs  
+- Detect invalid quantity or pricing values  
+- Ensure order headers and details are consistent  
+
+These checks help prevent corrupted or inconsistent data from entering the analytical layer.
+
+---
+
+## Analytical Queries
+
+### Daily Sales Performance
+Aggregates total orders and revenue per day.
+
+```sql
+SELECT
+    DATE(tanggal) AS sales_date,
+    COUNT(DISTINCT order_id) AS total_orders,
+    SUM(gross_amount) AS total_revenue
+FROM sales_header
+GROUP BY sales_date
+ORDER BY sales_date;
 
